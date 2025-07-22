@@ -1,0 +1,108 @@
+<div class="container py-3">
+  <!-- Dialog Title -->
+  <h4 class="mb-3 text-primary">{{ dialogTitle }}</h4>
+
+  <!-- Dialog Content -->
+  <div mat-dialog-content>
+    <form [formGroup]="goalForm" (ngSubmit)="submitGoalForm()">
+      <!-- Title & Visibility -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" required />
+            <mat-icon matSuffix>title</mat-icon>
+            <mat-error *ngIf="goalForm.get('title')?.hasError('required')">
+              Title is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Visibility</mat-label>
+            <mat-select formControlName="isPublic" required>
+              <mat-option [value]="true">Public</mat-option>
+              <mat-option [value]="false">Private</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="row">
+        <div class="col-12 mb-3">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              rows="3"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Deadline & Order -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Deadline</mat-label>
+            <input
+              matInput
+              [matDatepicker]="deadlinePicker"
+              formControlName="deadline"
+              [min]="today"
+            />
+            <mat-datepicker-toggle matSuffix [for]="deadlinePicker" />
+            <mat-datepicker #deadlinePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Order</mat-label>
+            <input
+              matInput
+              formControlName="order"
+              type="number"
+              min="0"
+              required
+            />
+            <mat-icon matSuffix>format_list_numbered</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Parent Goal -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Parent Goal</mat-label>
+            <mat-select formControlName="parentId">
+              <mat-option [value]="null">None</mat-option>
+              @for (parent of parentGoals; track parent.id) {
+                <mat-option [value]="parent.id">{{ parent.title }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="!goalForm.valid"
+        >
+          Save
+        </button>
+        <button mat-flat-button color="warn" mat-dialog-close>
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

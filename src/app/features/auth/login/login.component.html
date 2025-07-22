@@ -1,0 +1,74 @@
+<div class="auth-container">
+  <div class="row auth-main w-100 m-0">
+    <!-- Logo -->
+    <div class="col-sm-6 px-0 d-none d-sm-flex align-items-center justify-content-center">
+      <img src="assets/logos/logoBig.png" alt="GoalTracker" class="img-fluid" />
+    </div>
+
+    <!-- Form -->
+    <div class="col-sm-6 auth-form-section d-flex align-items-center justify-content-center">
+      <div class="auth-wrapper w-100 px-4" style="max-width: 400px">
+        <!-- Title -->
+        <div class="text-center mb-4">
+          <h4 class="welcome-msg mb-2">Welcome to Goal Tracker</h4>
+          <p class="auth-signup-text text-muted mb-1">
+            Need an account?
+            <a routerLink="/auth/register" class="sign-up-link ms-1">
+              Sign Up
+            </a>
+          </p>
+          <h5 class="login-title mb-3">Sign in to your account</h5>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <!-- Email -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" class="text-dark" />
+            <mat-icon matSuffix>face</mat-icon>
+            <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+              Email is required
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Password -->
+          <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Password</mat-label>
+            <input
+             class="text-dark" 
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              formControlName="password"
+            />
+            <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
+              {{ hide ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Error -->
+          <div *ngIf="error" class="alert alert-danger mt-2">
+            {{ error }}
+          </div>
+
+          <!-- Submit -->
+          <button
+            mat-flat-button
+            color="primary"
+            class="w-100 py-3 mt-3"
+            [disabled]="loading || !loginForm.valid"
+            type="submit"
+          >
+            <ng-container *ngIf="!loading">Sign In</ng-container>
+            <ng-container *ngIf="loading">
+              <mat-icon class="me-2">hourglass_empty</mat-icon>
+              Signing in...
+            </ng-container>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

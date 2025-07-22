@@ -1,0 +1,39 @@
+<div class="container py-3">
+  <!-- Dialog Title -->
+  <h5 class="mb-3 text-primary">{{ dialogTitle }}</h5>
+
+  <!-- Dialog  -->
+  <div mat-dialog-content>
+    <form [formGroup]="nestingForm" (ngSubmit)="submitNestingForm()">
+      <!-- Parent -->
+      <div class="row">
+        <div class="col-12 mb-3">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Select Parent Goal</mat-label>
+            <mat-select formControlName="parentId" required>
+              <mat-option [value]="null">None</mat-option>
+              @for (parent of parentGoals; track parent.id) {
+                <mat-option [value]="parent.id">{{ parent.title }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="d-flex justify-content-end gap-2 mt-3">
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          [disabled]="!nestingForm.valid"
+        >
+          Save
+        </button>
+        <button mat-flat-button color="warn" mat-dialog-close>
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

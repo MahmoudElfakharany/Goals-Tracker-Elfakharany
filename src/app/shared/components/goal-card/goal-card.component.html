@@ -1,0 +1,65 @@
+<div class="card mb-2" cdkDrag>
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h5 class="mb-1">{{ goal.title }}</h5>
+        <p class="mb-1 text-muted small">
+          {{ goal.isPublic ? "🌐 Public" : "🔒 Private" }}
+          @if(goal.deadline){<span>| ⏰ {{ goal.deadline }}</span
+          >}
+        </p>
+        <p class="m-0">Order:{{ goal.order }}</p>
+        @if(goal.description){
+        <p>
+          Description: {{ goal.description }}
+        </p>
+        }
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="btn-group">
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="edit.emit(goal)"
+        >
+          ✏️
+        </button>
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="delete.emit(goal)"
+        >
+          🗑️
+        </button>
+        <button
+          class="btn btn-sm btn-outline-primary"
+          (click)="toggleVisibility.emit(goal)"
+          [title]="goal.isPublic ? 'Make Private' : 'Make Public'"
+        >
+          {{ goal.isPublic ? "🔐" : "🌐" }}
+        </button>
+
+        <ng-container *ngIf="!isSubGoal">
+          <button
+            class="btn btn-sm btn-outline-success"
+            (click)="nestSubGoal.emit(goal)"
+            [disabled]="goal.parentId"
+            title="Nest Sub-goal"
+          >
+            ➕🔽
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="goal.parentId">
+          <button
+            class="btn btn-sm btn-outline-warning"
+            (click)="unnest.emit(goal)"
+            title="Un-nest"
+          >
+            🔼
+          </button>
+        </ng-container>
+      </div>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

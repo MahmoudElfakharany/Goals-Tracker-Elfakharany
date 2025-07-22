@@ -1,0 +1,71 @@
+<!-- Header -->
+<header
+  class="d-flex justify-content-between align-items-center p-3 mb-4 bg-light border-bottom shadow-sm"
+>
+  <div class="d-flex align-items-center gap-2">
+    <a class="d-flex flex-row gap-4 text-black"  href="/dashboard">
+      <img src="assets\logos\logoBig.png" alt="Logo" height="40" />
+      <h4 class="mb-0">Public Goals</h4>
+    </a>
+  </div>
+</header>
+
+<!-- Main Container -->
+<div class="container">
+  <!-- Loading State -->
+  @if (loading) {
+  <div class="text-center text-muted mt-5">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    <p>Loading public goals...</p>
+  </div>
+  }
+
+  <!-- Empty State -->
+  @else if (publicGoals.length === 0) {
+  <div class="text-center text-muted mt-5">
+    <mat-icon style="font-size: 48px; color: #ccc">visibility_off</mat-icon>
+    <p>No public goals available.</p>
+  </div>
+  }
+
+  <!-- Public Goals List -->
+  @else {
+  <div class="row g-4">
+    @for (goal of publicGoals; track goal.id) {
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <mat-card
+        class="shadow-sm h-100 d-flex flex-column justify-content-between"
+      >
+        <mat-card-header>
+          <mat-card-title>{{ goal.title }}</mat-card-title>
+          <mat-card-subtitle>
+            <small>Public ID: {{ goal.publicId || "N/A" }}</small>
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="text-muted">
+            {{ goal.description || "No description provided." }}
+          </p>
+          @if (goal.deadline) {
+          <p class="mb-1">
+            <strong>Deadline:</strong> {{ goal.deadline | date }}
+          </p>
+          }
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="openGoalDetails(goal)"
+          >
+            View Goal
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    }
+  </div>
+  }
+</div>

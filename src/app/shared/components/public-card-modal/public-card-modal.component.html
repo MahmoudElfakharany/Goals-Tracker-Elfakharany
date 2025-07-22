@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>{{ goal.title }}</h2>
+
+<mat-dialog-content class="py-2">
+  <!-- Description -->
+  <div class="mb-2">
+    <strong>Description:</strong>
+    <p>{{ goal.description || 'No description provided.' }}</p>
+  </div>
+
+  <!-- Deadline -->
+  @if (goal.deadline) {
+    <div class="mb-2">
+      <strong>Deadline:</strong>
+      <p>{{ goal.deadline | date }}</p>
+    </div>
+  }
+
+  <!-- Public ID -->
+  <div class="mb-2">
+    <strong>Public ID:</strong>
+    <p>{{ goal.publicId || 'N/A' }}</p>
+  </div>
+
+  <!-- Is Public -->
+  <div class="mb-2">
+    <strong>Is Public:</strong>
+    <p>{{ goal.isPublic ? 'Yes' : 'No' }}</p>
+  </div>
+
+  <!-- Created At -->
+  <div class="mb-2">
+    <strong>Created At:</strong>
+    <p>{{ goal.createdAt | date:'medium' }}</p>
+  </div>
+
+  <!-- Sub-goals -->
+  @if (goal.children?.length) {
+    <div class="mb-2 mt-3">
+      <strong>Sub-Goals:</strong>
+      <ul class="list-group list-group-flush ms-2">
+        @for (child of goal.children; track child.id) {
+          <li class="list-group-item px-0 py-1">
+            <strong>{{ child.title }}</strong>
+            <div class="text-muted small">{{ child.description || 'No description' }}</div>
+            @if (child.deadline) {
+              <div class="small">⏰ {{ child.deadline | date }}</div>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+</mat-dialog-actions>

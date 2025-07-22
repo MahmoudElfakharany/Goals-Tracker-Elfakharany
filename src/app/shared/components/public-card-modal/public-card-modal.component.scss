@@ -1,0 +1,13 @@
+mat-dialog-content {
+  max-height: 70vh;
+  overflow: auto;
+
+  ul {
+    padding-left: 1rem;
+  }
+
+  li {
+    border-left: 2px solid #007bff;
+    padding-left: 0.5rem;
+  }
+}

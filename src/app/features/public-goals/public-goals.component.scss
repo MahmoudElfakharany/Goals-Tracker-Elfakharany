@@ -1,0 +1,14 @@
+mat-card {
+  border-radius: 12px;
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 16px 16px;
+  }
+}

@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+/* Make full height layout work */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.auth-container {
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.auth-main {
+  flex: 1;
+  height: 100%;
+}
+
+/* Keep image responsive */
+.auth-main img {
+  max-width: 80%;
+  height: auto;
+}
+
+/* Form section padding */
+.auth-form-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Form wrapper max width */
+.auth-wrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-main {
+  margin: 0 !important;
+}
